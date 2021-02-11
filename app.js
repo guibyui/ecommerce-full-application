@@ -1,4 +1,5 @@
 const path = require("path");
+const PORT = process.env.PORT || 5000;
 
 const express = require("express");
 const bodyParser = require("body-parser");
@@ -12,6 +13,14 @@ const flash = require("connect-flash");
 const errorController = require("./controllers/error");
 // const mongoConnect = require("./util/database").mongoConnect;
 const User = require("./models/user");
+
+const options = {
+  useUnifiedTopology: true,
+  useNewUrlParser: true,
+  useCreateIndex: true,
+  useFindAndModify: false,
+  family: 4,
+};
 
 const MONGODB_URI =
   "mongodb+srv://gui-cse341:gui-cse341@e-commerce.ceecg.mongodb.net/shopDB?retryWrites=true&w=majority";
@@ -77,14 +86,12 @@ app.use(authRoutes);
 app.use(errorController.get404);
 
 mongoose
-  .connect(MONGODB_URI)
+  .connect(MONGODB_URI, options)
   .then((result) => {
-    app.listen(3000);
+    app.listen(PORT);
   })
   .catch((err) => {
     console.log(err);
   });
 
-const port = process.env.PORT || 5000;
-
-app.listen(port);
+// app.listen(port);
