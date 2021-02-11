@@ -1,4 +1,5 @@
 const path = require("path");
+const cors = require("cors");
 const PORT = process.env.PORT || 5000;
 
 const express = require("express");
@@ -13,16 +14,6 @@ const flash = require("connect-flash");
 const errorController = require("./controllers/error");
 // const mongoConnect = require("./util/database").mongoConnect;
 const User = require("./models/user");
-
-const useStatements = {
-  useUnifiedTopology: true,
-  useNewUrlParser: true,
-  useCreateIndex: true,
-  useFindAndModify: false,
-};
-
-const MONGODB_URI =
-  "mongodb+srv://gui-cse341:gui-cse341@e-commerce.ceecg.mongodb.net/shopDB?retryWrites=true&w=majority";
 
 const app = express();
 const store = new MongoDBStore({
@@ -84,8 +75,25 @@ app.use(authRoutes);
 
 app.use(errorController.get404);
 
+const corsOptions = {
+  origin: "https://ecommerce-full-application.herokuapp.com/",
+  optionsSuccessStatus: 200,
+};
+app.use(cors(corsOptions));
+
+const options = {
+  useUnifiedTopology: true,
+  useNewUrlParser: true,
+  useCreateIndex: true,
+  useFindAndModify: false,
+  family: 4,
+};
+const MONGODB_URL =
+  process.env.MONGODB_URL ||
+  "mongodb+srv://gui-cse341:gui-cse341@e-commerce.ceecg.mongodb.net/shopDB?retryWrites=true&w=majority";
+
 mongoose
-  .connect(MONGODB_URI, useStatements)
+  .connect(MONGODB_URL, useStatements)
   .then((result) => {
     app.listen(PORT);
   })
