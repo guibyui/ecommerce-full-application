@@ -16,10 +16,10 @@ const errorController = require("./controllers/error");
 const User = require("./models/user");
 
 const app = express();
-const store = new MongoDBStore({
-  uri: MONGODB_URI,
-  collection: "sessions",
-});
+// const store = new MongoDBStore({
+//   uri: MONGODB_URI,
+//   collection: "sessions",
+// });
 const csrfProtection = csrf();
 
 app.set("view engine", "ejs");
@@ -36,7 +36,7 @@ app.use(
     secret: "my secret",
     resave: false,
     saveUninitialized: false,
-    store: store,
+    // store: store,
   })
 );
 
