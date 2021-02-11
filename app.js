@@ -81,7 +81,7 @@ const corsOptions = {
 };
 app.use(cors(corsOptions));
 
-const options = {
+const useStatements = {
   useUnifiedTopology: true,
   useNewUrlParser: true,
   useCreateIndex: true,
