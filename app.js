@@ -14,12 +14,11 @@ const errorController = require("./controllers/error");
 // const mongoConnect = require("./util/database").mongoConnect;
 const User = require("./models/user");
 
-const options = {
+const useStatements = {
   useUnifiedTopology: true,
   useNewUrlParser: true,
   useCreateIndex: true,
   useFindAndModify: false,
-  family: 4,
 };
 
 const MONGODB_URI =
@@ -86,7 +85,7 @@ app.use(authRoutes);
 app.use(errorController.get404);
 
 mongoose
-  .connect(MONGODB_URI, options)
+  .connect(MONGODB_URI, useStatements)
   .then((result) => {
     app.listen(PORT);
   })
