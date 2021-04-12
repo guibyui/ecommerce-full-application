@@ -8,6 +8,15 @@ const isAuth = require('../middleware/is-auth');
 
 const router = express.Router();
 
+// exports.isAdmin = (req,res,next) =>{
+//     console.log(req.session)
+//     if(req.session.user.userLevel == 1){
+//         return res.redirect('/');
+//     }
+//     next();
+// };
+
+
 // /admin/add-product => GET
 router.get('/add-product', isAuth, adminController.getAddProduct);
 

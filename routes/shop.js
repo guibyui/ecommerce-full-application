@@ -7,6 +7,8 @@ const isAuth = require('../middleware/is-auth');
 
 const router = express.Router();
 
+// router.post('/add-product', isAuth.isAuth, isAuth.isAdmin, adminController.postAddProduct);
+
 router.get('/', shopController.getIndex);
 
 router.get('/products', shopController.getProducts);
